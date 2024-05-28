@@ -1,11 +1,11 @@
 //
-//  File.swift
-//  
+//  MainWithPemAuthentication.swift
+//
 //
 //  Created by Jani Pasanen on 2024-05-28.
 //
 
-import Foundation
+/*
 import Dispatch
 import NIO
 import NIOSSH
@@ -155,4 +155,4 @@ do {
     print("Error: \(error)")
 }
 
-
+*/
