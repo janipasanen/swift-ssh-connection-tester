@@ -94,7 +94,7 @@ do {
             channel.pipeline.addHandlers([
                 NIOSSHHandler(
                     role: .client(.init(
-                        userAuthDelegate: PEMPrivateKeyDelegate(username: parseResult.user, privateKey: sshPrivateKey),
+                        userAuthDelegate: PEMPrivateKeyDelegate(username: parseResult.user!, privateKey: sshPrivateKey),
                         serverAuthDelegate: AcceptAllHostKeysDelegate()
                     )),
                     allocator: channel.allocator,
