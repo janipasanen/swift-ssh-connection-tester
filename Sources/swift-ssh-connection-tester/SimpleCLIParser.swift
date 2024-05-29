@@ -17,11 +17,13 @@ import Foundation
 struct SimpleCLIParser {
     func parse() -> Result {
         var arguments = CommandLine.arguments.dropFirst()
+        print("arguments received: \(arguments)")
 
         // Let's start by searching for flags
         var listen: Listen?
         while let first = arguments.first, first.starts(with: "-") {
             arguments = arguments.dropFirst()
+            print("arguments after dropping first: \(arguments)")
 
             switch first {
             case "-L":
@@ -29,16 +31,23 @@ struct SimpleCLIParser {
                 guard let next = arguments.popFirst(), let parsed = Listen(listenString: next) else {
                     self.usage()
                 }
+                print("next: \(next)")
+                print("arguments after dropping after popping again: \(arguments)")
+                
                 listen = parsed
             default:
                 self.usage()
             }
         }
 
+        
         // The first argument must be "target"
         guard var target = arguments.popFirst() else {
+            print("arguments after popping again trying to get target: \(arguments)")
             self.usage()
         }
+        
+        print("target: \(target)")
 
         // We trick Foundation into doing something sensible here by prepending the target with ssh:// if it didn't
         // already have it.
@@ -49,7 +58,11 @@ struct SimpleCLIParser {
         guard let targetURL = URL(string: target) else {
             self.usage()
         }
+        
+        print("targetURL: \(target)")
+        
         let command = arguments.joined(separator: " ")
+        print("command: \(command)")
 
         return Result(commandString: command, target: targetURL, listen: listen)
     }
